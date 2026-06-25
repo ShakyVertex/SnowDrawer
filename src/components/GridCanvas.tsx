@@ -1,11 +1,14 @@
 import { useEffect, useRef } from 'react'
 import {
+  FRAME_BORDER_WIDTH,
+  FRAME_COLOR,
+  FRAME_PADDING,
   SQUARE_COLOR_DEFAULT,
   SQUARE_COLOR_MARKED,
   SQUARE_GAP,
   SQUARE_SIZE,
 } from '../constants'
-import { getGridCanvasSize } from '../utils/gridLayout'
+import { getCanvasSize, getGridOffset, getGridSize } from '../utils/gridLayout'
 import { cellKey, getCellFromPointer, type Cell } from '../utils/cellSelection'
 
 type GridCanvasProps = {
@@ -19,8 +22,11 @@ type GridCanvasProps = {
 export function GridCanvas({ x, y, annotateMode, markedCells, onCellClick }: GridCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  const width = getGridCanvasSize(x)
-  const height = getGridCanvasSize(y)
+  const gridWidth = getGridSize(x)
+  const gridHeight = getGridSize(y)
+  const width = getCanvasSize(gridWidth)
+  const height = getCanvasSize(gridHeight)
+  const gridOffset = getGridOffset()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -33,21 +39,30 @@ export function GridCanvas({ x, y, annotateMode, markedCells, onCellClick }: Gri
 
     for (let row = 0; row < y; row++) {
       for (let col = 0; col < x; col++) {
-        const px = col * (SQUARE_SIZE + SQUARE_GAP)
-        const py = row * (SQUARE_SIZE + SQUARE_GAP)
+        const px = gridOffset + col * (SQUARE_SIZE + SQUARE_GAP)
+        const py = gridOffset + row * (SQUARE_SIZE + SQUARE_GAP)
         const isMarked = markedCells.has(cellKey(col, row))
         ctx.fillStyle = isMarked ? SQUARE_COLOR_MARKED : SQUARE_COLOR_DEFAULT
         ctx.fillRect(px, py, SQUARE_SIZE, SQUARE_SIZE)
       }
     }
-  }, [x, y, width, height, markedCells])
+
+    ctx.strokeStyle = FRAME_COLOR
+    ctx.lineWidth = FRAME_BORDER_WIDTH
+    ctx.strokeRect(
+      gridOffset - FRAME_PADDING - FRAME_BORDER_WIDTH / 2,
+      gridOffset - FRAME_PADDING - FRAME_BORDER_WIDTH / 2,
+      gridWidth + 2 * FRAME_PADDING + FRAME_BORDER_WIDTH,
+      gridHeight + 2 * FRAME_PADDING + FRAME_BORDER_WIDTH,
+    )
+  }, [x, y, width, height, gridWidth, gridHeight, gridOffset, markedCells])
 
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!annotateMode) return
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const cell = getCellFromPointer(canvas, e.clientX, e.clientY, x, y)
+    const cell = getCellFromPointer(canvas, e.clientX, e.clientY, x, y, gridOffset)
     if (cell) onCellClick(cell)
   }
 

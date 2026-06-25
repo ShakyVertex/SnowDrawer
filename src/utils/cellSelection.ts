@@ -12,12 +12,13 @@ export function getCellFromPointer(
   clientY: number,
   cols: number,
   rows: number,
+  gridOffset = 0,
 ): Cell | null {
   const rect = canvas.getBoundingClientRect()
   const scaleX = canvas.width / rect.width
   const scaleY = canvas.height / rect.height
-  const px = (clientX - rect.left) * scaleX
-  const py = (clientY - rect.top) * scaleY
+  const px = (clientX - rect.left) * scaleX - gridOffset
+  const py = (clientY - rect.top) * scaleY - gridOffset
 
   const col = Math.floor(px / (SQUARE_SIZE + SQUARE_GAP))
   const row = Math.floor(py / (SQUARE_SIZE + SQUARE_GAP))

@@ -55,7 +55,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>SnowDrawer</h1>
-        <p>动态方块网格绘图</p>
+        <p>欢雪奇遇场地绘制系统</p>
       </header>
 
       <main className="workspace">

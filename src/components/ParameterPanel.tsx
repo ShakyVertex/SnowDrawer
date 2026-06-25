@@ -1,5 +1,5 @@
 import { SQUARE_GAP, SQUARE_SIZE } from '../constants'
-import { getGridCanvasSize } from '../utils/gridLayout'
+import { getCanvasSize, getFrameSize, getGridSize } from '../utils/gridLayout'
 
 type ParameterPanelProps = {
   x: number
@@ -29,15 +29,17 @@ export function ParameterPanel({
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
-  const canvasWidth = getGridCanvasSize(x)
-  const canvasHeight = getGridCanvasSize(y)
+  const gridWidth = getGridSize(x)
+  const gridHeight = getGridSize(y)
+  const canvasWidth = getCanvasSize(gridWidth)
+  const canvasHeight = getCanvasSize(gridHeight)
+  const frameWidth = getFrameSize(gridWidth)
+  const frameHeight = getFrameSize(gridHeight)
 
   return (
     <aside className="parameter-panel">
-      <h2 className="panel-title">参数设置</h2>
-
       <label className="field">
-        <span className="field-label">长 x</span>
+        <span className="field-label">列数（水平方向）</span>
         <input
           type="number"
           min={1}
@@ -45,11 +47,10 @@ export function ParameterPanel({
           value={x}
           onChange={(e) => onXChange(parsePositiveInt(e.target.value))}
         />
-        <span className="field-hint">列数（水平方向）</span>
       </label>
 
       <label className="field">
-        <span className="field-label">宽 y</span>
+        <span className="field-label">行数（垂直方向）</span>
         <input
           type="number"
           min={1}
@@ -57,7 +58,6 @@ export function ParameterPanel({
           value={y}
           onChange={(e) => onYChange(parsePositiveInt(e.target.value))}
         />
-        <span className="field-hint">行数（垂直方向）</span>
       </label>
 
       <div className="panel-actions">
@@ -97,6 +97,12 @@ export function ParameterPanel({
         <div>
           <dt>方块间距</dt>
           <dd>{SQUARE_GAP}px</dd>
+        </div>
+        <div>
+          <dt>紫色框尺寸</dt>
+          <dd>
+            {frameWidth} × {frameHeight} px
+          </dd>
         </div>
         <div>
           <dt>画布尺寸</dt>
