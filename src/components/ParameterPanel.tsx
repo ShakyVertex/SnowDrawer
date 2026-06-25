@@ -1,4 +1,5 @@
 import { getCanvasSize, getPurpleFrameSize, getGridSize } from '../utils/gridLayout'
+import { getMaxYSolution } from '../utils/trussSolution'
 
 type ParameterPanelProps = {
   x: number
@@ -42,6 +43,10 @@ export function ParameterPanel({
   const canvasHeight = getCanvasSize(gridHeight)
   const frameWidth = getPurpleFrameSize(gridWidth)
   const frameHeight = getPurpleFrameSize(gridHeight)
+  const trussX = x + 0.8
+  const trussY = y + 0.4
+  const trussSolutionX = getMaxYSolution(trussX)
+  const trussSolutionY = getMaxYSolution(trussY)
 
   return (
     <aside className="parameter-panel">
@@ -135,7 +140,25 @@ export function ParameterPanel({
         </div>
         <div>
           <dt>桁架尺寸</dt>
-          <dd>{x + 0.6} m × {y + 0.6} m</dd>
+          <dd>
+            {x + 0.6} m × {y + 0.6} m
+          </dd>
+        </div>
+        <div>
+          <dt>水平方案</dt>
+          <dd>
+            {trussSolutionX
+              ? `${trussSolutionX.x}根1m + ${trussSolutionX.y}根1.2m`
+              : '无正整数解'}
+          </dd>
+        </div>
+        <div>
+          <dt>垂直方案</dt>
+          <dd>
+            {trussSolutionY
+              ? `${trussSolutionY.x}根1m + ${trussSolutionY.y}根1.2m`
+              : '无正整数解'}
+          </dd>
         </div>
       </dl>
     </aside>
