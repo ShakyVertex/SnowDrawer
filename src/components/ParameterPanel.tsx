@@ -125,7 +125,18 @@ export function ParameterPanel({
           <dt>格网</dt>
           <dd>{m * n * 4 * 4 + x * y * 4}</dd>
         </div>
-        
+        <div>
+          <dt>5cm泡沫板</dt>
+          <dd>{Math.ceil(x / 0.6) * Math.ceil(y / 1.8) + Math.ceil(((x + 0.2) * 2 + (y + 0.2) * 2) / 1.8)}</dd>
+        </div>
+        <div>
+          <dt>3cm泡沫板</dt>
+          <dd>{Math.ceil(x / 0.6) * Math.ceil(y / 1.8) * 4 - Math.floor(m / 0.6) * Math.floor(n / 1.8) * 3}</dd>
+        </div>
+        <div>
+          <dt>桁架尺寸</dt>
+          <dd>{x + 0.6} m × {y + 0.6} m</dd>
+        </div>
       </dl>
     </aside>
   )
