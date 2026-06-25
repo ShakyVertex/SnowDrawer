@@ -1,5 +1,5 @@
 import { SQUARE_GAP, SQUARE_SIZE } from '../constants'
-import { getCanvasSize, getFrameSize, getGridSize } from '../utils/gridLayout'
+import { getCanvasSize, getPurpleFrameSize, getRedFrameSize, getGridSize } from '../utils/gridLayout'
 
 type ParameterPanelProps = {
   x: number
@@ -33,8 +33,10 @@ export function ParameterPanel({
   const gridHeight = getGridSize(y)
   const canvasWidth = getCanvasSize(gridWidth)
   const canvasHeight = getCanvasSize(gridHeight)
-  const frameWidth = getFrameSize(gridWidth)
-  const frameHeight = getFrameSize(gridHeight)
+  const frameWidth = getPurpleFrameSize(gridWidth)
+  const frameHeight = getPurpleFrameSize(gridHeight)
+  const redFrameWidth = getRedFrameSize(gridWidth)
+  const redFrameHeight = getRedFrameSize(gridHeight)
 
   return (
     <aside className="parameter-panel">
@@ -102,6 +104,12 @@ export function ParameterPanel({
           <dt>紫色框尺寸</dt>
           <dd>
             {frameWidth} × {frameHeight} px
+          </dd>
+        </div>
+        <div>
+          <dt>红色框尺寸</dt>
+          <dd>
+            {redFrameWidth} × {redFrameHeight} px
           </dd>
         </div>
         <div>

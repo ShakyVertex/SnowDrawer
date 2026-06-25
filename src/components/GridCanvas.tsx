@@ -3,6 +3,9 @@ import {
   FRAME_BORDER_WIDTH,
   FRAME_COLOR,
   FRAME_PADDING,
+  OUTER_FRAME_BORDER_WIDTH,
+  OUTER_FRAME_COLOR,
+  OUTER_FRAME_PADDING,
   SQUARE_COLOR_DEFAULT,
   SQUARE_COLOR_MARKED,
   SQUARE_GAP,
@@ -49,12 +52,21 @@ export function GridCanvas({ x, y, annotateMode, markedCells, onCellClick }: Gri
 
     ctx.strokeStyle = FRAME_COLOR
     ctx.lineWidth = FRAME_BORDER_WIDTH
-    ctx.strokeRect(
-      gridOffset - FRAME_PADDING - FRAME_BORDER_WIDTH / 2,
-      gridOffset - FRAME_PADDING - FRAME_BORDER_WIDTH / 2,
-      gridWidth + 2 * FRAME_PADDING + FRAME_BORDER_WIDTH,
-      gridHeight + 2 * FRAME_PADDING + FRAME_BORDER_WIDTH,
-    )
+    const purpleX = gridOffset - FRAME_PADDING - FRAME_BORDER_WIDTH / 2
+    const purpleY = gridOffset - FRAME_PADDING - FRAME_BORDER_WIDTH / 2
+    const purpleW = gridWidth + 2 * FRAME_PADDING + FRAME_BORDER_WIDTH
+    const purpleH = gridHeight + 2 * FRAME_PADDING + FRAME_BORDER_WIDTH
+    ctx.strokeRect(purpleX, purpleY, purpleW, purpleH)
+
+    ctx.strokeStyle = OUTER_FRAME_COLOR
+    ctx.lineWidth = OUTER_FRAME_BORDER_WIDTH
+    const redX =
+      purpleX - OUTER_FRAME_PADDING - OUTER_FRAME_BORDER_WIDTH / 2 - FRAME_BORDER_WIDTH / 2
+    const redY =
+      purpleY - OUTER_FRAME_PADDING - OUTER_FRAME_BORDER_WIDTH / 2 - FRAME_BORDER_WIDTH / 2
+    const redW = purpleW + 2 * OUTER_FRAME_PADDING + FRAME_BORDER_WIDTH + OUTER_FRAME_BORDER_WIDTH
+    const redH = purpleH + 2 * OUTER_FRAME_PADDING + FRAME_BORDER_WIDTH + OUTER_FRAME_BORDER_WIDTH
+    ctx.strokeRect(redX, redY, redW, redH)
   }, [x, y, width, height, gridWidth, gridHeight, gridOffset, markedCells])
 
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
