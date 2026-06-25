@@ -1,5 +1,4 @@
 import { FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
-import { getCanvasSize, getPurpleFrameSize, getGridSize } from '../utils/gridLayout'
 import { getMaxSolution, getMaxSolutionDeprecated } from '../utils/trussSolution'
 
 type ParameterPanelProps = {
@@ -30,7 +29,6 @@ export function ParameterPanel({
   n,
   annotateMode,
   annotateStep,
-  markedCount,
   onXChange,
   onYChange,
   onMChange,
@@ -38,12 +36,6 @@ export function ParameterPanel({
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
-  const gridWidth = getGridSize(x)
-  const gridHeight = getGridSize(y)
-  const canvasWidth = getCanvasSize(gridWidth)
-  const canvasHeight = getCanvasSize(gridHeight)
-  const frameWidth = getPurpleFrameSize(gridWidth)
-  const frameHeight = getPurpleFrameSize(gridHeight)
   const trussX = x + 0.8
   const trussY = y + 0.4
   const trussSolutionX = getMaxSolution(trussX)
@@ -151,9 +143,9 @@ export function ParameterPanel({
           <dt style={{ color: OUTER_FRAME_COLOR }}>水平方案</dt>
           <dd>
             {trussSolutionX
-              ? `${trussSolutionX.x}根2m + ${trussSolutionX.y}根1.2m`
+              ? `${trussSolutionX.x}组2m + ${trussSolutionX.y}组1.2m`
               : trussSolutionXDeprecated
-                ? `${trussSolutionXDeprecated.x}根1m + ${trussSolutionXDeprecated.y}根1.2m`
+                ? `${trussSolutionXDeprecated.x}组1m + ${trussSolutionXDeprecated.y}组1.2m`
                 : '无正整数解'}
           </dd>
         </div>
@@ -161,9 +153,9 @@ export function ParameterPanel({
           <dt style={{ color: OUTER_FRAME_COLOR }}>垂直方案</dt>
           <dd>
             {trussSolutionY
-              ? `${trussSolutionY.x}根2m + ${trussSolutionY.y}根1.2m`
+              ? `${trussSolutionY.x}组2m + ${trussSolutionY.y}组1.2m`
               : trussSolutionYDeprecated
-                ? `${trussSolutionYDeprecated.x}根1m + ${trussSolutionYDeprecated.y}根1.2m`
+                ? `${trussSolutionYDeprecated.x}组1m + ${trussSolutionYDeprecated.y}组1.2m`
                 : '无正整数解'}
           </dd>
         </div>
