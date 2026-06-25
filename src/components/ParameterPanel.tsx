@@ -1,6 +1,6 @@
 import { FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
 import { getCanvasSize, getPurpleFrameSize, getGridSize } from '../utils/gridLayout'
-import { getMaxYSolution } from '../utils/trussSolution'
+import { getMaxSolution, getMaxSolutionDeprecated } from '../utils/trussSolution'
 
 type ParameterPanelProps = {
   x: number
@@ -46,8 +46,10 @@ export function ParameterPanel({
   const frameHeight = getPurpleFrameSize(gridHeight)
   const trussX = x + 0.8
   const trussY = y + 0.4
-  const trussSolutionX = getMaxYSolution(trussX)
-  const trussSolutionY = getMaxYSolution(trussY)
+  const trussSolutionX = getMaxSolution(trussX)
+  const trussSolutionY = getMaxSolution(trussY)
+  const trussSolutionXDeprecated = getMaxSolutionDeprecated(trussX)
+  const trussSolutionYDeprecated = getMaxSolutionDeprecated(trussY)
 
   return (
     <aside className="parameter-panel">
@@ -149,16 +151,20 @@ export function ParameterPanel({
           <dt style={{ color: OUTER_FRAME_COLOR }}>水平方案</dt>
           <dd>
             {trussSolutionX
-              ? `${trussSolutionX.x}根1m + ${trussSolutionX.y}根1.2m`
-              : '无正整数解'}
+              ? `${trussSolutionX.x}根2m + ${trussSolutionX.y}根1.2m`
+              : trussSolutionXDeprecated
+                ? `${trussSolutionXDeprecated.x}根1m + ${trussSolutionXDeprecated.y}根1.2m`
+                : '无正整数解'}
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>垂直方案</dt>
           <dd>
             {trussSolutionY
-              ? `${trussSolutionY.x}根1m + ${trussSolutionY.y}根1.2m`
-              : '无正整数解'}
+              ? `${trussSolutionY.x}根2m + ${trussSolutionY.y}根1.2m`
+              : trussSolutionYDeprecated
+                ? `${trussSolutionYDeprecated.x}根1m + ${trussSolutionYDeprecated.y}根1.2m`
+                : '无正整数解'}
           </dd>
         </div>
       </dl>
