@@ -1,14 +1,17 @@
-import { SQUARE_GAP, SQUARE_SIZE } from '../constants'
-import { getCanvasSize, getPurpleFrameSize, getRedFrameSize, getGridSize } from '../utils/gridLayout'
+import { getCanvasSize, getPurpleFrameSize, getGridSize } from '../utils/gridLayout'
 
 type ParameterPanelProps = {
   x: number
   y: number
+  m: number
+  n: number
   annotateMode: boolean
   annotateStep: 0 | 1
   markedCount: number
   onXChange: (value: number) => void
   onYChange: (value: number) => void
+  onMChange: (value: number) => void
+  onNChange: (value: number) => void
   onAnnotateToggle: () => void
   onReset: () => void
 }
@@ -21,11 +24,15 @@ function parsePositiveInt(value: string): number {
 export function ParameterPanel({
   x,
   y,
+  m,
+  n,
   annotateMode,
   annotateStep,
   markedCount,
   onXChange,
   onYChange,
+  onMChange,
+  onNChange,
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
@@ -35,31 +42,53 @@ export function ParameterPanel({
   const canvasHeight = getCanvasSize(gridHeight)
   const frameWidth = getPurpleFrameSize(gridWidth)
   const frameHeight = getPurpleFrameSize(gridHeight)
-  const redFrameWidth = getRedFrameSize(gridWidth)
-  const redFrameHeight = getRedFrameSize(gridHeight)
 
   return (
     <aside className="parameter-panel">
       <label className="field">
-        <span className="field-label">列数（水平方向）</span>
-        <input
-          type="number"
-          min={1}
-          step={1}
-          value={x}
-          onChange={(e) => onXChange(parsePositiveInt(e.target.value))}
-        />
+        <span className="field-label">模块</span>
+        <div className="field-row">
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={x}
+            onChange={(e) => onXChange(parsePositiveInt(e.target.value))}
+          />
+          <span className="field-op" aria-hidden="true">
+            ×
+          </span>
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={y}
+            onChange={(e) => onYChange(parsePositiveInt(e.target.value))}
+          />
+        </div>
       </label>
 
       <label className="field">
-        <span className="field-label">行数（垂直方向）</span>
-        <input
-          type="number"
-          min={1}
-          step={1}
-          value={y}
-          onChange={(e) => onYChange(parsePositiveInt(e.target.value))}
-        />
+        <span className="field-label">水箱</span>
+        <div className="field-row">
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={n}
+            onChange={(e) => onNChange(parsePositiveInt(e.target.value))}
+          />
+          <span className="field-op" aria-hidden="true">
+            ×
+          </span>
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={m}
+            onChange={(e) => onMChange(parsePositiveInt(e.target.value))}
+          />
+        </div>
       </label>
 
       <div className="panel-actions">
@@ -85,39 +114,18 @@ export function ParameterPanel({
 
       <dl className="stats">
         <div>
-          <dt>方块总数</dt>
+          <dt>模块</dt>
           <dd>{x * y}</dd>
         </div>
         <div>
-          <dt>已标注</dt>
-          <dd>{markedCount}</dd>
+          <dt>水箱</dt>
+          <dd>{m * n}</dd>
         </div>
         <div>
-          <dt>方块边长</dt>
-          <dd>{SQUARE_SIZE}px</dd>
+          <dt>格网</dt>
+          <dd>{m * n * 4 * 4 + x * y * 4}</dd>
         </div>
-        <div>
-          <dt>方块间距</dt>
-          <dd>{SQUARE_GAP}px</dd>
-        </div>
-        <div>
-          <dt>紫色框尺寸</dt>
-          <dd>
-            {frameWidth} × {frameHeight} px
-          </dd>
-        </div>
-        <div>
-          <dt>红色框尺寸</dt>
-          <dd>
-            {redFrameWidth} × {redFrameHeight} px
-          </dd>
-        </div>
-        <div>
-          <dt>画布尺寸</dt>
-          <dd>
-            {canvasWidth} × {canvasHeight} px
-          </dd>
-        </div>
+        
       </dl>
     </aside>
   )

@@ -7,6 +7,8 @@ import './App.css'
 function App() {
   const [x, setX] = useState(8)
   const [y, setY] = useState(6)
+  const [m, setM] = useState(2)
+  const [n, setN] = useState(3)
   const [annotateMode, setAnnotateMode] = useState(false)
   const [pendingCell, setPendingCell] = useState<Cell | null>(null)
   const [markedCells, setMarkedCells] = useState<Set<string>>(() => new Set())
@@ -71,11 +73,15 @@ function App() {
         <ParameterPanel
           x={x}
           y={y}
+          m={m}
+          n={n}
           annotateMode={annotateMode}
           annotateStep={pendingCell ? 1 : 0}
           markedCount={markedCells.size}
           onXChange={handleDimensionChange(setX)}
           onYChange={handleDimensionChange(setY)}
+          onMChange={setM}
+          onNChange={setN}
           onAnnotateToggle={handleAnnotateToggle}
           onReset={handleReset}
         />
