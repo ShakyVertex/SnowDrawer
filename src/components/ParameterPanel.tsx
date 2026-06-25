@@ -1,3 +1,4 @@
+import { FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
 import { getCanvasSize, getPurpleFrameSize, getGridSize } from '../utils/gridLayout'
 import { getMaxYSolution } from '../utils/trussSolution'
 
@@ -131,21 +132,21 @@ export function ParameterPanel({
           <dd>{m * n * 4 * 4 + x * y * 4}</dd>
         </div>
         <div>
-          <dt>5cm泡沫板</dt>
+          <dt style={{ color: FRAME_COLOR }}>5cm泡沫板</dt>
           <dd>{Math.ceil(x / 0.6) * Math.ceil(y / 1.8) + Math.ceil(((x + 0.2) * 2 + (y + 0.2) * 2) / 1.8)}</dd>
         </div>
         <div>
-          <dt>3cm泡沫板</dt>
+          <dt style={{ color: FRAME_COLOR }}>3cm泡沫板</dt>
           <dd>{Math.ceil(x / 0.6) * Math.ceil(y / 1.8) * 4 - Math.floor(m / 0.6) * Math.floor(n / 1.8) * 3}</dd>
         </div>
         <div>
-          <dt>桁架尺寸</dt>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架尺寸</dt>
           <dd>
             {x + 0.6} m × {y + 0.6} m
           </dd>
         </div>
         <div>
-          <dt>水平方案</dt>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>水平方案</dt>
           <dd>
             {trussSolutionX
               ? `${trussSolutionX.x}根1m + ${trussSolutionX.y}根1.2m`
@@ -153,7 +154,7 @@ export function ParameterPanel({
           </dd>
         </div>
         <div>
-          <dt>垂直方案</dt>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>垂直方案</dt>
           <dd>
             {trussSolutionY
               ? `${trussSolutionY.x}根1m + ${trussSolutionY.y}根1.2m`
