@@ -11,15 +11,13 @@ type ParameterPanelProps = {
   markedCount: number
   onXChange: (value: number) => void
   onYChange: (value: number) => void
-  onMChange: (value: number) => void
-  onNChange: (value: number) => void
   onAnnotateToggle: () => void
   onReset: () => void
 }
 
-function parsePositiveInt(value: string): number {
+function parseNonNegativeInt(value: string): number {
   const parsed = Number.parseInt(value, 10)
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0
 }
 
 export function ParameterPanel({
@@ -31,8 +29,6 @@ export function ParameterPanel({
   annotateStep,
   onXChange,
   onYChange,
-  onMChange,
-  onNChange,
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
@@ -50,43 +46,20 @@ export function ParameterPanel({
         <div className="field-row">
           <input
             type="number"
-            min={1}
+            min={0}
             step={1}
             value={x}
-            onChange={(e) => onXChange(parsePositiveInt(e.target.value))}
+            onChange={(e) => onXChange(parseNonNegativeInt(e.target.value))}
           />
           <span className="field-op" aria-hidden="true">
             ×
           </span>
           <input
             type="number"
-            min={1}
+            min={0}
             step={1}
             value={y}
-            onChange={(e) => onYChange(parsePositiveInt(e.target.value))}
-          />
-        </div>
-      </label>
-
-      <label className="field">
-        <span className="field-label">水箱</span>
-        <div className="field-row">
-          <input
-            type="number"
-            min={1}
-            step={1}
-            value={n}
-            onChange={(e) => onNChange(parsePositiveInt(e.target.value))}
-          />
-          <span className="field-op" aria-hidden="true">
-            ×
-          </span>
-          <input
-            type="number"
-            min={1}
-            step={1}
-            value={m}
-            onChange={(e) => onMChange(parsePositiveInt(e.target.value))}
+            onChange={(e) => onYChange(parseNonNegativeInt(e.target.value))}
           />
         </div>
       </label>
@@ -119,7 +92,15 @@ export function ParameterPanel({
         </div>
         <div>
           <dt>水箱</dt>
-          <dd>{m * n}</dd>
+          <dd>
+            {m} × {n} = {m * n}
+          </dd>
+        </div>
+        <div>
+          <dt>水重</dt>
+          <dd>
+            {m * n * 0.37} 吨
+          </dd>
         </div>
         <div>
           <dt>格网</dt>

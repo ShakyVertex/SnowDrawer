@@ -32,12 +32,16 @@ export function getCellFromPointer(
   return { col, row }
 }
 
-export function getRegionCells(a: Cell, b: Cell): Cell[] {
+export function getRegionBounds(a: Cell, b: Cell) {
   const colMin = Math.min(a.col, b.col)
   const colMax = Math.max(a.col, b.col)
   const rowMin = Math.min(a.row, b.row)
   const rowMax = Math.max(a.row, b.row)
+  return { colMin, colMax, rowMin, rowMax }
+}
 
+export function getRegionCells(a: Cell, b: Cell): Cell[] {
+  const { colMin, colMax, rowMin, rowMax } = getRegionBounds(a, b)
   const cells: Cell[] = []
   for (let row = rowMin; row <= rowMax; row++) {
     for (let col = colMin; col <= colMax; col++) {

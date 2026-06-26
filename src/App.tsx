@@ -1,25 +1,31 @@
 import { useCallback, useState } from 'react'
 import { GridCanvas } from './components/GridCanvas'
 import { ParameterPanel } from './components/ParameterPanel'
-import { cellKey, getRegionCells, type Cell } from './utils/cellSelection'
+import { cellKey, getRegionBounds, getRegionCells, type Cell } from './utils/cellSelection'
 import './App.css'
 
 function App() {
   const [x, setX] = useState(8)
   const [y, setY] = useState(6)
-  const [m, setM] = useState(2)
-  const [n, setN] = useState(3)
+  const [m, setM] = useState(0)
+  const [n, setN] = useState(0)
   const [annotateMode, setAnnotateMode] = useState(false)
   const [pendingCell, setPendingCell] = useState<Cell | null>(null)
   const [markedCells, setMarkedCells] = useState<Set<string>>(() => new Set())
 
+  const clearMarks = useCallback(() => {
+    setMarkedCells(new Set())
+    setPendingCell(null)
+    setM(0)
+    setN(0)
+  }, [])
+
   const handleDimensionChange = useCallback(
     (setter: (value: number) => void) => (value: number) => {
       setter(value)
-      setMarkedCells(new Set())
-      setPendingCell(null)
+      clearMarks()
     },
-    [],
+    [clearMarks],
   )
 
   const handleAnnotateToggle = () => {
@@ -28,15 +34,13 @@ function App() {
         setPendingCell(null)
         return false
       }
-      setMarkedCells(new Set())
-      setPendingCell(null)
+      clearMarks()
       return true
     })
   }
 
   const handleReset = () => {
-    setMarkedCells(new Set())
-    setPendingCell(null)
+    clearMarks()
     setAnnotateMode(false)
   }
 
@@ -47,6 +51,8 @@ function App() {
     }
 
     const region = getRegionCells(pendingCell, cell)
+    const { colMin, colMax, rowMin, rowMax } = getRegionBounds(pendingCell, cell)
+
     setMarkedCells((prev) => {
       const next = new Set(prev)
       for (const { col, row } of region) {
@@ -54,6 +60,8 @@ function App() {
       }
       return next
     })
+    setM(colMax - colMin + 1)
+    setN(rowMax - rowMin + 1)
     setPendingCell(null)
     setAnnotateMode(false)
   }
@@ -85,8 +93,6 @@ function App() {
           markedCount={markedCells.size}
           onXChange={handleDimensionChange(setX)}
           onYChange={handleDimensionChange(setY)}
-          onMChange={setM}
-          onNChange={setN}
           onAnnotateToggle={handleAnnotateToggle}
           onReset={handleReset}
         />

@@ -79,7 +79,7 @@ export function GridCanvas({ x, y, annotateMode, markedCells, onCellClick }: Gri
   }
 
   if (x <= 0 || y <= 0) {
-    return <div className="canvas-empty">请输入有效的长、宽参数</div>
+    return <div className="canvas-empty" />
   }
 
   return (
