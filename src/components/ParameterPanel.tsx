@@ -87,7 +87,7 @@ export function ParameterPanel({
 
       <dl className="stats">
         <div>
-          <dt>模块</dt>
+          <dt title="尺寸：100cm*100cm*25cm">模块</dt>
           <dd>{x * y}</dd>
         </div>
         <div>
@@ -103,19 +103,19 @@ export function ParameterPanel({
           </dd>
         </div>
         <div>
-          <dt>格网</dt>
+          <dt title="尺寸：50cm*50cm*3cm">格网</dt>
           <dd>{m * n * 4 * 4 + x * y * 4}</dd>
         </div>
         <div>
-          <dt style={{ color: FRAME_COLOR }}>5cm泡沫板</dt>
+          <dt style={{ color: FRAME_COLOR }} title="尺寸：60cm*180cm*5cm">5cm泡沫板</dt>
           <dd>{Math.ceil(x / 0.6) * Math.ceil(y / 1.8) + Math.ceil(((x + 0.2) * 2 + (y + 0.2) * 2) / 1.8)}</dd>
         </div>
         <div>
-          <dt style={{ color: FRAME_COLOR }}>3cm泡沫板</dt>
+          <dt style={{ color: FRAME_COLOR }} title="尺寸：60cm*180cm*3cm">3cm泡沫板</dt>
           <dd>{Math.ceil(x / 0.6) * Math.ceil(y / 1.8) * 4 - Math.floor(m / 0.6) * Math.floor(n / 1.8) * 3}</dd>
         </div>
         <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架尺寸</dt>
+          <dt style={{ color: OUTER_FRAME_COLOR }} title="长度：0.2m 0.5m 0.8m 1m 1.2m 1.5m 2m">桁架尺寸</dt>
           <dd>
             {x + 0.6} m × {y + 0.6} m
           </dd>
