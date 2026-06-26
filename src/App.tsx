@@ -7,6 +7,8 @@ import './App.css'
 function App() {
   const [x, setX] = useState(8)
   const [y, setY] = useState(6)
+  const [u, setU] = useState(0)
+  const [t, setT] = useState(0)
   const [m, setM] = useState(0)
   const [n, setN] = useState(0)
   const [annotateMode, setAnnotateMode] = useState(false)
@@ -104,6 +106,8 @@ function App() {
         <ParameterPanel
           x={x}
           y={y}
+          u={u}
+          t={t}
           m={displayTank.m}
           n={displayTank.n}
           isPreviewing={annotateMode && pendingCell !== null}
@@ -112,6 +116,8 @@ function App() {
           markedCount={markedCells.size}
           onXChange={handleDimensionChange(setX)}
           onYChange={handleDimensionChange(setY)}
+          onUChange={setU}
+          onTChange={setT}
           onAnnotateToggle={handleAnnotateToggle}
           onReset={handleReset}
         />

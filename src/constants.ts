@@ -12,3 +12,5 @@ export const FRAME_COLOR = '#9333ea'
 export const OUTER_FRAME_PADDING = 4
 export const OUTER_FRAME_BORDER_WIDTH = 2
 export const OUTER_FRAME_COLOR = '#ef4444'
+
+export const EQUIPMENT_ROOM_COLOR = '#166534'

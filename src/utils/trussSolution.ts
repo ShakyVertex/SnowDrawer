@@ -35,3 +35,50 @@ export function getMaxSolutionDeprecated(z: number): { x: number; y: number } | 
 
   return null
 }
+
+export type TrussCounts = {
+  count1m: number
+  count12m: number
+  count2m: number
+}
+
+const EMPTY_TRUSS_COUNTS: TrussCounts = {
+  count1m: 0,
+  count12m: 0,
+  count2m: 0,
+}
+
+/** 优先 2m+1.2m 方案，否则 1m+1.2m 方案；无法整除时各数量为 0 */
+export function getTrussCounts(z: number): TrussCounts {
+  const solution = getMaxSolution(z)
+  if (solution) {
+    return {
+      count1m: 0,
+      count12m: solution.y,
+      count2m: solution.x,
+    }
+  }
+
+  const deprecated = getMaxSolutionDeprecated(z)
+  if (deprecated) {
+    return {
+      count1m: deprecated.x,
+      count12m: deprecated.y,
+      count2m: 0,
+    }
+  }
+
+  return EMPTY_TRUSS_COUNTS
+}
+
+function formatTrussCounts({ count1m, count12m, count2m }: TrussCounts): string {
+  const parts: string[] = []
+  if (count2m > 0) parts.push(`${count2m}组2m`)
+  if (count12m > 0) parts.push(`${count12m}组1.2m`)
+  if (count1m > 0) parts.push(`${count1m}组1m`)
+  return parts.length > 0 ? parts.join(' + ') : '无正整数解'
+}
+
+export function formatTrussSolution(z: number): string {
+  return formatTrussCounts(getTrussCounts(z))
+}
