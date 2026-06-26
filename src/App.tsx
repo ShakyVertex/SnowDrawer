@@ -24,8 +24,13 @@ function App() {
 
   const handleAnnotateToggle = () => {
     setAnnotateMode((prev) => {
-      if (prev) setPendingCell(null)
-      return !prev
+      if (prev) {
+        setPendingCell(null)
+        return false
+      }
+      setMarkedCells(new Set())
+      setPendingCell(null)
+      return true
     })
   }
 
