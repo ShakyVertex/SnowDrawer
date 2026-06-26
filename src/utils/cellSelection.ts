@@ -40,6 +40,14 @@ export function getRegionBounds(a: Cell, b: Cell) {
   return { colMin, colMax, rowMin, rowMax }
 }
 
+export function getTankDimensions(a: Cell, b: Cell) {
+  const { colMin, colMax, rowMin, rowMax } = getRegionBounds(a, b)
+  return {
+    m: colMax - colMin + 1,
+    n: rowMax - rowMin + 1,
+  }
+}
+
 export function getRegionCells(a: Cell, b: Cell): Cell[] {
   const { colMin, colMax, rowMin, rowMax } = getRegionBounds(a, b)
   const cells: Cell[] = []
@@ -49,4 +57,12 @@ export function getRegionCells(a: Cell, b: Cell): Cell[] {
     }
   }
   return cells
+}
+
+export function getRegionCellKeys(a: Cell, b: Cell): Set<string> {
+  const keys = new Set<string>()
+  for (const { col, row } of getRegionCells(a, b)) {
+    keys.add(cellKey(col, row))
+  }
+  return keys
 }

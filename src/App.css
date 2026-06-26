@@ -197,3 +197,7 @@
   color: var(--text-h);
   font-variant-numeric: tabular-nums;
 }
+
+.stats-preview {
+  color: #60a5fa;
+}

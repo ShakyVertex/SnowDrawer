@@ -1,7 +1,7 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { GridCanvas } from './components/GridCanvas'
 import { ParameterPanel } from './components/ParameterPanel'
-import { cellKey, getRegionBounds, getRegionCells, type Cell } from './utils/cellSelection'
+import { cellKey, getRegionCells, getTankDimensions, type Cell } from './utils/cellSelection'
 import './App.css'
 
 function App() {
@@ -11,11 +11,13 @@ function App() {
   const [n, setN] = useState(0)
   const [annotateMode, setAnnotateMode] = useState(false)
   const [pendingCell, setPendingCell] = useState<Cell | null>(null)
+  const [previewCell, setPreviewCell] = useState<Cell | null>(null)
   const [markedCells, setMarkedCells] = useState<Set<string>>(() => new Set())
 
   const clearMarks = useCallback(() => {
     setMarkedCells(new Set())
     setPendingCell(null)
+    setPreviewCell(null)
     setM(0)
     setN(0)
   }, [])
@@ -32,6 +34,7 @@ function App() {
     setAnnotateMode((prev) => {
       if (prev) {
         setPendingCell(null)
+        setPreviewCell(null)
         return false
       }
       clearMarks()
@@ -47,11 +50,12 @@ function App() {
   const handleCellClick = (cell: Cell) => {
     if (!pendingCell) {
       setPendingCell(cell)
+      setPreviewCell(cell)
       return
     }
 
     const region = getRegionCells(pendingCell, cell)
-    const { colMin, colMax, rowMin, rowMax } = getRegionBounds(pendingCell, cell)
+    const { m: nextM, n: nextN } = getTankDimensions(pendingCell, cell)
 
     setMarkedCells((prev) => {
       const next = new Set(prev)
@@ -60,11 +64,22 @@ function App() {
       }
       return next
     })
-    setM(colMax - colMin + 1)
-    setN(rowMax - rowMin + 1)
+    setM(nextM)
+    setN(nextN)
     setPendingCell(null)
+    setPreviewCell(null)
     setAnnotateMode(false)
   }
+
+  const displayTank = useMemo(() => {
+    if (annotateMode && pendingCell) {
+      if (previewCell) {
+        return getTankDimensions(pendingCell, previewCell)
+      }
+      return { m: 1, n: 1 }
+    }
+    return { m, n }
+  }, [annotateMode, pendingCell, previewCell, m, n])
 
   return (
     <div className="app">
@@ -79,15 +94,19 @@ function App() {
             x={x}
             y={y}
             annotateMode={annotateMode}
+            pendingCell={pendingCell}
+            previewCell={previewCell}
             markedCells={markedCells}
             onCellClick={handleCellClick}
+            onCellHover={setPreviewCell}
           />
         </section>
         <ParameterPanel
           x={x}
           y={y}
-          m={m}
-          n={n}
+          m={displayTank.m}
+          n={displayTank.n}
+          isPreviewing={annotateMode && pendingCell !== null}
           annotateMode={annotateMode}
           annotateStep={pendingCell ? 1 : 0}
           markedCount={markedCells.size}

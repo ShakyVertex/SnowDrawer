@@ -6,6 +6,7 @@ type ParameterPanelProps = {
   y: number
   m: number
   n: number
+  isPreviewing?: boolean
   annotateMode: boolean
   annotateStep: 0 | 1
   markedCount: number
@@ -25,6 +26,7 @@ export function ParameterPanel({
   y,
   m,
   n,
+  isPreviewing = false,
   annotateMode,
   annotateStep,
   onXChange,
@@ -81,7 +83,7 @@ export function ParameterPanel({
         <p className="annotate-hint">
           {annotateStep === 0
             ? '请点击左上角区域的方块'
-            : '请点击右下角区域的方块'}
+            : '移动鼠标预览范围，点击右下角确认'}
         </p>
       )}
 
@@ -92,7 +94,7 @@ export function ParameterPanel({
         </div>
         <div>
           <dt>水箱</dt>
-          <dd>
+          <dd className={isPreviewing ? 'stats-preview' : undefined}>
             {m} × {n} = {m * n}
           </dd>
         </div>
