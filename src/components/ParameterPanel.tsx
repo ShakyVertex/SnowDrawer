@@ -182,6 +182,18 @@ export function ParameterPanel({
             {u * 2 + 0.2 * (u + 1)} m × {t * 2 + 0.2 * (t + 1)} m
           </dd>
         </div>
+        <div>
+          <dt style={{ color: EQUIPMENT_ROOM_COLOR }}>设备房面积</dt>
+          <dd>
+            {((u * 2 + 0.2 * (u + 1)) * (t * 2 + 0.2 * (t + 1))).toFixed(2)} 平方米
+          </dd>
+        </div>
+        <div>
+          <dt style={{ color: EQUIPMENT_ROOM_COLOR }}>戏雪区面积</dt>
+          <dd>
+            {((x + 0.6) * (y + 0.6)).toFixed(2)} 平方米
+          </dd>
+        </div>
       </dl>
     </aside>
   )

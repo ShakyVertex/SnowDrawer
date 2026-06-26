@@ -5,8 +5,8 @@ export function AppHeader() {
     <header className="app-header">
       <div className="app-header-main">
         <Link to="/" className="app-header-brand">
-          <h1>SnowDrawer</h1>
-          <p>欢雪奇遇场地绘制系统</p>
+          <h1>欢雪奇遇物料测算系统</h1>
+          <p>系统问题联系微信: lkn_cintaiuo</p>
         </Link>
       </div>
       <div className="app-header-actions">
