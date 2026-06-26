@@ -1,4 +1,5 @@
 import { EQUIPMENT_ROOM_COLOR, FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
+import { NonNegativeIntInput } from './NonNegativeIntInput'
 import { getTrussCounts, type TrussCounts } from '../utils/trussSolution'
 
 type ParameterPanelProps = {
@@ -18,11 +19,6 @@ type ParameterPanelProps = {
   onTChange: (value: number) => void
   onAnnotateToggle: () => void
   onReset: () => void
-}
-
-function parseNonNegativeInt(value: string): number {
-  const parsed = Number.parseInt(value, 10)
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0
 }
 
 function formatTrussCounts({ count1m, count12m, count2m }: TrussCounts): string {
@@ -67,46 +63,22 @@ export function ParameterPanel({
       <label className="field">
         <span className="field-label">模块</span>
         <div className="field-row">
-          <input
-            type="number"
-            min={0}
-            step={1}
-            value={x}
-            onChange={(e) => onXChange(parseNonNegativeInt(e.target.value))}
-          />
+          <NonNegativeIntInput value={x} onChange={onXChange} />
           <span className="field-op" aria-hidden="true">
             ×
           </span>
-          <input
-            type="number"
-            min={0}
-            step={1}
-            value={y}
-            onChange={(e) => onYChange(parseNonNegativeInt(e.target.value))}
-          />
+          <NonNegativeIntInput value={y} onChange={onYChange} />
         </div>
       </label>
 
       <label className="field">
         <span className="field-label">设备房桁架</span>
         <div className="field-row">
-          <input
-            type="number"
-            min={0}
-            step={1}
-            value={u}
-            onChange={(e) => onUChange(parseNonNegativeInt(e.target.value))}
-          />
+          <NonNegativeIntInput value={u} onChange={onUChange} />
           <span className="field-op" aria-hidden="true">
             ×
           </span>
-          <input
-            type="number"
-            min={0}
-            step={1}
-            value={t}
-            onChange={(e) => onTChange(parseNonNegativeInt(e.target.value))}
-          />
+          <NonNegativeIntInput value={t} onChange={onTChange} />
         </div>
       </label>
 
