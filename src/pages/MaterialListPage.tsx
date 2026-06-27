@@ -25,7 +25,7 @@ export default function MaterialListPage() {
                   <td className="material-image">
                     <img src={item.imageUrl} alt={item.name} width={64} height={64} />
                   </td>
-                  <td className="material-price">¥{item.price.toFixed(2)}</td>
+                  <td className="material-price">{item.price}</td>
                   <td className="material-remark">{item.remark}</td>
                 </tr>
               ))}
