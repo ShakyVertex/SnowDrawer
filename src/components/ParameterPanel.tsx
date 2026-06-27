@@ -145,48 +145,48 @@ export function ParameterPanel({
             {formatFenceCount(verticalSolution)}
           </dd>
         </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.4m）</dt>
-          <dd>
-            {truss40cm} 根
-          </dd>
-        </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.5m）</dt>
-          <dd>
-            {truss50cm} 根
-          </dd>
-        </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.8m）</dt>
-          <dd>
-            {truss80cm} 根
-          </dd>
-        </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1m）</dt>
-          <dd>
-            {truss100cm} 根
-          </dd>
-        </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.2m）</dt>
-          <dd>
-            {truss120cm} 根
-          </dd>
-        </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.5m）</dt>
-          <dd>
-            {truss150cm} 根
-          </dd>
-        </div>
-        <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }} >桁架（2m）</dt>
-          <dd>
-            {truss200cm} 根
-          </dd>
-        </div>
+        {truss40cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.4m）</dt>
+            <dd>{truss40cm} 根</dd>
+          </div>
+        )}
+        {truss50cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.5m）</dt>
+            <dd>{truss50cm} 根</dd>
+          </div>
+        )}
+        {truss80cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.8m）</dt>
+            <dd>{truss80cm} 根</dd>
+          </div>
+        )}
+        {truss100cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1m）</dt>
+            <dd>{truss100cm} 根</dd>
+          </div>
+        )}
+        {truss120cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.2m）</dt>
+            <dd>{truss120cm} 根</dd>
+          </div>
+        )}
+        {truss150cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.5m）</dt>
+            <dd>{truss150cm} 根</dd>
+          </div>
+        )}
+        {truss200cm > 0 && (
+          <div>
+            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（2m）</dt>
+            <dd>{truss200cm} 根</dd>
+          </div>
+        )}
         <div>
           <dt style={{ color: EQUIPMENT_ROOM_COLOR }}>设备房尺寸</dt>
           <dd>
