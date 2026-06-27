@@ -23,6 +23,11 @@ const EMPTY_FENCE_COUNTS: FenceCounts = {
   count200cm: 0,
 }
 
+export const EMPTY_FENCE_SOLUTION: FenceSolution = {
+  counts: EMPTY_FENCE_COUNTS,
+  postCount: 0,
+}
+
 // 栏杆长度（米）与计数键，优先级从长到短
 const BAR_MAP: [number, keyof FenceCounts][] = [
   [2.0, 'count200cm'],
@@ -145,7 +150,7 @@ export function calculateFence(totalLength: number): FenceSolution | null {
 
 export function formatFenceCount(solution: FenceSolution | null): string {
   if (!solution) return '无正整数解'
-  const { counts, postCount } = solution
+  const { counts } = solution
   const parts: string[] = []
   if (counts.count200cm > 0) parts.push(`${counts.count200cm}组2m`)
   if (counts.count150cm > 0) parts.push(`${counts.count150cm}组1.5m`)
@@ -154,5 +159,5 @@ export function formatFenceCount(solution: FenceSolution | null): string {
   if (counts.count80cm > 0) parts.push(`${counts.count80cm}组0.8m`)
   if (counts.count50cm > 0) parts.push(`${counts.count50cm}组0.5m`)
   if (counts.count40cm > 0) parts.push(`${counts.count40cm}组0.4m`)
-  return parts.length > 1 ? parts.join('+') : '无正整数解'
+  return parts.length > 0 ? parts.join(' + ') : '无正整数解'
 }

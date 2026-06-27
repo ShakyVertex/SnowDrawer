@@ -1,6 +1,6 @@
 import { EQUIPMENT_ROOM_COLOR, FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
 import { NonNegativeIntInput } from './NonNegativeIntInput'
-import { calculateFence, formatFenceCount } from '../utils/fenceSolution'
+import { calculateFence, EMPTY_FENCE_SOLUTION, formatFenceCount } from '../utils/fenceSolution'
 
 type ParameterPanelProps = {
   x: number
@@ -38,8 +38,8 @@ export function ParameterPanel({
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
-  const horizontalSolution = calculateFence(x + 0.6)
-  const verticalSolution = calculateFence(y + 0.6)
+  const horizontalSolution = calculateFence(x + 0.6) ?? EMPTY_FENCE_SOLUTION
+  const verticalSolution = calculateFence(y + 0.6) ?? EMPTY_FENCE_SOLUTION
   const totalPost = horizontalSolution.postCount * 2 + verticalSolution.postCount * 2 - 4
   const deviceRoomTruss = u * 4 + t * 4 + (u + t) * 2
   const doorTruss40cm = 40
