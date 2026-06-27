@@ -1,6 +1,6 @@
 import { EQUIPMENT_ROOM_COLOR, FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
 import { NonNegativeIntInput } from './NonNegativeIntInput'
-import { getTrussCounts, type TrussCounts } from '../utils/trussSolution'
+import { calculateFence, formatFenceCount } from '../utils/fenceSolution'
 
 type ParameterPanelProps = {
   x: number
@@ -21,14 +21,6 @@ type ParameterPanelProps = {
   onReset: () => void
 }
 
-function formatTrussCounts({ count1m, count12m, count2m }: TrussCounts): string {
-  const parts: string[] = []
-  if (count2m > 0) parts.push(`${count2m}组2m`)
-  if (count12m > 0) parts.push(`${count12m}组1.2m`)
-  if (count1m > 0) parts.push(`${count1m}组1m`)
-  return parts.length > 0 ? parts.join(' + ') : '无正整数解'
-}
-
 export function ParameterPanel({
   x,
   y,
@@ -46,18 +38,21 @@ export function ParameterPanel({
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
-  const trussX = x + 0.8
-  const trussY = y + 0.4
-  const horizontalTruss = getTrussCounts(trussX)
-  const verticalTruss = getTrussCounts(trussY)
-  const horizontalCount1m = horizontalTruss.count1m
-  const horizontalCount12m = horizontalTruss.count12m
-  const horizontalCount2m = horizontalTruss.count2m
-  const verticalCount1m = verticalTruss.count1m
-  const verticalCount12m = verticalTruss.count12m
-  const verticalCount2m = verticalTruss.count2m
-  const pillarCount = (verticalCount1m + verticalCount12m + verticalCount2m + horizontalCount1m + horizontalCount12m + horizontalCount2m) * 2
-
+  const horizontalSolution = calculateFence(x + 0.6)
+  const verticalSolution = calculateFence(y + 0.6)
+  const totalPost = horizontalSolution.postCount * 2 + verticalSolution.postCount * 2 - 4
+  const deviceRoomTruss = u * 4 + t * 4 + (u + t) * 2
+  const doorTruss40cm = 40
+  const doorTruss80cm = 16
+  const doorTruss200cm = 12
+  const truss40cm = horizontalSolution.counts.count40cm * 4 + verticalSolution.counts.count40cm * 4 + doorTruss40cm
+  const truss50cm = horizontalSolution.counts.count50cm * 4 + verticalSolution.counts.count50cm * 4
+  const truss80cm = horizontalSolution.counts.count80cm * 4 + verticalSolution.counts.count80cm * 4 + doorTruss80cm
+  const truss100cm = horizontalSolution.counts.count100cm * 4 + verticalSolution.counts.count100cm * 4
+  const truss120cm = horizontalSolution.counts.count120cm * 4 + verticalSolution.counts.count120cm * 4 + totalPost
+  const truss150cm = horizontalSolution.counts.count150cm * 4 + verticalSolution.counts.count150cm * 4
+  const truss200cm = horizontalSolution.counts.count200cm * 4 + verticalSolution.counts.count200cm * 4 + deviceRoomTruss + doorTruss200cm
+  
   return (
     <aside className="parameter-panel">
       <label className="field">
@@ -141,39 +136,55 @@ export function ParameterPanel({
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>水平方案</dt>
           <dd>
-            {formatTrussCounts({
-              count1m: horizontalCount1m,
-              count12m: horizontalCount12m,
-              count2m: horizontalCount2m,
-            })}
+            {formatFenceCount(horizontalSolution)}
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>垂直方案</dt>
           <dd>
-            {formatTrussCounts({
-              count1m: verticalCount1m,
-              count12m: verticalCount12m,
-              count2m: verticalCount2m,
-            })}
+            {formatFenceCount(verticalSolution)}
+          </dd>
+        </div>
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.4m）</dt>
+          <dd>
+            {truss40cm} 根
+          </dd>
+        </div>
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.5m）</dt>
+          <dd>
+            {truss50cm} 根
+          </dd>
+        </div>
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.8m）</dt>
+          <dd>
+            {truss80cm} 根
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1m）</dt>
           <dd>
-            {(horizontalCount1m + verticalCount1m) * 4} 根
+            {truss100cm} 根
           </dd>
         </div>
         <div>
-          <dt style={{ color: OUTER_FRAME_COLOR }} title={`${pillarCount} 桩`}>桁架（1.2m）</dt>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.2m）</dt>
           <dd>
-            {(horizontalCount12m + verticalCount12m) * 4 + pillarCount} 根
+            {truss120cm} 根
+          </dd>
+        </div>
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.5m）</dt>
+          <dd>
+            {truss150cm} 根
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }} >桁架（2m）</dt>
           <dd>
-            {(horizontalCount2m + verticalCount2m) * 4 + (u + t) * 2 + (u + t) * 4} 根
+            {truss200cm} 根
           </dd>
         </div>
         <div>
