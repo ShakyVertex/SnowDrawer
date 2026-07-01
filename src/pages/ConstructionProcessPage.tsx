@@ -10,10 +10,10 @@ export default function ConstructionProcessPage() {
       <main className="construction-process-main">
         <div className="construction-process-scroll">
           <ol className="construction-steps">
-            {constructionSteps.map((step) => (
+            {constructionSteps.map((step, index) => (
               <li key={step.id} className="construction-step">
                 <div className="construction-step-header">
-                  <span className="construction-step-order">{step.order}</span>
+                  <span className="construction-step-order">{index + 1}</span>
                   <h2 className="construction-step-title">{step.title}</h2>
                 </div>
                 <p className="construction-step-description">{step.description}</p>
