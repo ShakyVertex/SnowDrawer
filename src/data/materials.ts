@@ -61,14 +61,14 @@ export const materials: Material[] = [
     name: '螺帽螺母',
     imageUrl: 'https://placehold.co/80x80/d1d5db/4b5563?text=NB',
     price: '? 元/套',
-    remark: '14号螺母 长七公分 8厘 14头要全牙',
+    remark: 'M8×70 全螺纹外六角螺栓，配 M8 螺母',
   },
   {
     id: 'banner-cloth',
     name: '广告布',
     imageUrl: 'https://placehold.co/80x80/fef08a/ca8a04?text=AD',
     price: '10-20 元/平方米',
-    remark: '',
+    remark: '黑胶、黑底灯布、高度1.2 顶部20cm 翻面1.2、下面出血、边上留白边5公分左右打扣眼到白边上、下面还有20公分的位置，包过去用扎带扎起来',
   },
   {
     id: 'cable',
