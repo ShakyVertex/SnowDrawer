@@ -51,7 +51,7 @@ export function ParameterPanel({
   const verticalStructure140cm = Math.floor(verticalRemain220cm / 1.4)
   const verticalPlus = Math.floor((verticalRemain220cm % 1.4) / 0.2)
 
-  const nutBolts = (horizontalStructure220cm + horizontalStructure140cm + horizontalPlus + verticalStructure220cm + verticalStructure140cm + verticalPlus + u + t) * 2 * 8
+  const nutBolts = (horizontalStructure220cm + horizontalStructure140cm + verticalStructure220cm + verticalStructure140cm + u + t) * 8 * 2 + (horizontalPlus + verticalPlus) * 4 * 2
   const playgroundTruss120cm = (horizontalStructure140cm + verticalStructure140cm) * 3 * 2 + (horizontalPlus + verticalPlus) * 2 + (horizontalStructure220cm + verticalStructure220cm) * 2
   const playgroundTruss200cm = (horizontalStructure220cm + verticalStructure220cm) * 2 * 2
 
