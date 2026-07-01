@@ -130,4 +130,20 @@ export const materials: Material[] = [
     remark: '加粗加厚尼龙扎带\n尺寸：长 550mm × 宽 7.6mm',
     category: 'tool',
   },
+  {
+    id: 'scissors',
+    name: '剪刀',
+    imageUrl: 'https://placehold.co/80x80/fde68a/d97706?text=SC',
+    price: '? 元/件',
+    remark: '用于裁剪防水布',
+    category: 'tool',
+  },
+  {
+    id: 'tape-measure',
+    name: '皮尺',
+    imageUrl: 'https://placehold.co/80x80/bfdbfe/2563eb?text=TM',
+    price: '? 元/件',
+    remark: '用于测量场地',
+    category: 'tool',
+  },
 ]
