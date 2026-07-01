@@ -95,7 +95,7 @@ export const materials: Material[] = [
     name: '高压水枪',
     imageUrl: 'https://placehold.co/80x80/a7f3d0/16a34a?text=PW',
     price: '? 元/件',
-    remark: '',
+    remark: '用于清洗防水布、格网、模块',
     category: 'tool',
   },
   {
