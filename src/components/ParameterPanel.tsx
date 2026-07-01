@@ -1,6 +1,5 @@
 import { EQUIPMENT_ROOM_COLOR, FRAME_COLOR, OUTER_FRAME_COLOR } from '../constants'
 import { NonNegativeIntInput } from './NonNegativeIntInput'
-import { calculateFence, EMPTY_FENCE_SOLUTION, formatFenceCount } from '../utils/fenceSolution'
 
 type ParameterPanelProps = {
   x: number
@@ -38,21 +37,17 @@ export function ParameterPanel({
   onAnnotateToggle,
   onReset,
 }: ParameterPanelProps) {
-  const horizontalSolution = calculateFence(x + 0.6) ?? EMPTY_FENCE_SOLUTION
-  const verticalSolution = calculateFence(y + 0.6) ?? EMPTY_FENCE_SOLUTION
-  const totalPost = horizontalSolution.postCount * 2 + verticalSolution.postCount * 2 - 4
-  const deviceRoomTruss = u * 4 + t * 4 + (u + t) * 2
-  const doorTruss40cm = 40
-  const doorTruss80cm = 16
-  const doorTruss200cm = 12
-  const truss40cm = horizontalSolution.counts.count40cm * 4 + verticalSolution.counts.count40cm * 4 + doorTruss40cm
-  const truss50cm = horizontalSolution.counts.count50cm * 4 + verticalSolution.counts.count50cm * 4
-  const truss80cm = horizontalSolution.counts.count80cm * 4 + verticalSolution.counts.count80cm * 4 + doorTruss80cm
-  const truss100cm = horizontalSolution.counts.count100cm * 4 + verticalSolution.counts.count100cm * 4
-  const truss120cm = horizontalSolution.counts.count120cm * 4 + verticalSolution.counts.count120cm * 4 + totalPost
-  const truss150cm = horizontalSolution.counts.count150cm * 4 + verticalSolution.counts.count150cm * 4
-  const truss200cm = horizontalSolution.counts.count200cm * 4 + verticalSolution.counts.count200cm * 4 + deviceRoomTruss + doorTruss200cm
+  const deviceRoomTruss200cm = u * 4 + t * 4 + (u + t) * 2
+  const horizontal = x + 0.8
+  const vertical = y + 0.8
+  const horizontalStructure = Math.floor((horizontal - 0.2) / 1.4)
+  const verticalStructure = Math.floor((vertical - 0.2) / 1.4)
+  const horizontalRemain = Math.floor((horizontal - 0.2) % 1.4 / 0.2)
+  const verticalRemain = Math.floor((vertical - 0.2) % 1.4 / 0.2)
+  const nutBolts = (horizontalStructure + verticalStructure) * 2 * 16 + (horizontalRemain + verticalRemain) * 2 * 8 + (u + t) * 16 * 2
+  const playgroundTruss120cm = (horizontalStructure + verticalStructure) * 3 * 2 + (horizontalRemain + verticalRemain) * 2 - 4
   
+
   return (
     <aside className="parameter-panel">
       <label className="field">
@@ -130,63 +125,33 @@ export function ParameterPanel({
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }} title="长度：0.2m 0.5m 0.8m 1m 1.2m 1.5m 2m">桁架尺寸</dt>
           <dd>
-            {x + 0.6} m × {y + 0.6} m
+            {horizontal} m × {vertical} m
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>水平方案</dt>
           <dd>
-            {formatFenceCount(horizontalSolution)}
+            {horizontalStructure} 匚 + {horizontalRemain} 补充柱
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>垂直方案</dt>
           <dd>
-            {formatFenceCount(verticalSolution)}
+            {verticalStructure} 匚 + {verticalRemain} 补充柱
           </dd>
         </div>
-        {truss40cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.4m）</dt>
-            <dd>{truss40cm} 根</dd>
-          </div>
-        )}
-        {truss50cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.5m）</dt>
-            <dd>{truss50cm} 根</dd>
-          </div>
-        )}
-        {truss80cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（0.8m）</dt>
-            <dd>{truss80cm} 根</dd>
-          </div>
-        )}
-        {truss100cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1m）</dt>
-            <dd>{truss100cm} 根</dd>
-          </div>
-        )}
-        {truss120cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.2m）</dt>
-            <dd>{truss120cm} 根</dd>
-          </div>
-        )}
-        {truss150cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.5m）</dt>
-            <dd>{truss150cm} 根</dd>
-          </div>
-        )}
-        {truss200cm > 0 && (
-          <div>
-            <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（2m）</dt>
-            <dd>{truss200cm} 根</dd>
-          </div>
-        )}
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（1.2m）</dt>
+          <dd>{playgroundTruss120cm} 根</dd>
+        </div>
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（2m）</dt>
+          <dd>{deviceRoomTruss200cm} 根</dd>
+        </div>
+        <div>
+          <dt style={{ color: OUTER_FRAME_COLOR }}>螺栓螺母</dt>
+          <dd>{nutBolts} 个</dd>
+        </div>
         <div>
           <dt style={{ color: EQUIPMENT_ROOM_COLOR }}>设备房尺寸</dt>
           <dd>
@@ -202,7 +167,7 @@ export function ParameterPanel({
         <div>
           <dt style={{ color: EQUIPMENT_ROOM_COLOR }}>戏雪区面积</dt>
           <dd>
-            {((x + 0.6) * (y + 0.6)).toFixed(2)} 平方米
+            {(horizontal * vertical).toFixed(2)} 平方米
           </dd>
         </div>
       </dl>
