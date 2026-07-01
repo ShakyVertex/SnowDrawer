@@ -10,8 +10,11 @@ export function AppHeader() {
         </Link>
       </div>
       <div className="app-header-actions">
-        <Link to="/materials" className="btn-header">
+      <Link to="/materials" className="btn-header">
           物料清单
+        </Link>
+        <Link to="/construction" className="btn-header">
+          施工流程
         </Link>
       </div>
     </header>
