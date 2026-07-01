@@ -69,8 +69,24 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+  gap: 24px;
   padding: 24px;
   background: var(--bg);
+  overflow: auto;
+}
+
+.material-list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.material-list-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-h);
 }
 
 .material-table-scroll {
