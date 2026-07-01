@@ -54,7 +54,7 @@ export const materials: Material[] = [
     name: '防水布',
     imageUrl: 'https://placehold.co/80x80/bfdbfe/2563eb?text=WP',
     price: '? 元/平方米',
-    remark: '',
+    remark: '尺寸：25m × 3m',
   },
   {
     id: 'nut-bolt',
@@ -100,7 +100,7 @@ export const materials: Material[] = [
   },
   {
     id: 'heat-fusion-gun',
-    name: '热熔枪',
+    name: '土工膜爬焊机',
     imageUrl: 'https://placehold.co/80x80/fda4af/dc2626?text=HF',
     price: '? 元/件',
     remark: '用于焊接防水布',

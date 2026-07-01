@@ -44,7 +44,7 @@ export function ParameterPanel({
   const verticalStructure = Math.floor((vertical - 0.2) / 1.4)
   const horizontalRemain = Math.floor((horizontal - 0.2) % 1.4 / 0.2)
   const verticalRemain = Math.floor((vertical - 0.2) % 1.4 / 0.2)
-  const nutBolts = (horizontalStructure + verticalStructure) * 2 * 16 + (horizontalRemain + verticalRemain) * 2 * 8 + (u + t) * 16 * 2
+  const nutBolts = (horizontalStructure + verticalStructure + horizontalRemain + verticalRemain + u + t) * 2 * 8
   const playgroundTruss120cm = (horizontalStructure + verticalStructure) * 3 * 2 + (horizontalRemain + verticalRemain) * 2 - 4
   
 
@@ -105,7 +105,7 @@ export function ParameterPanel({
           </dd>
         </div>
         <div>
-          <dt>水重</dt>
+          <dt title='每台设备最大载荷20t水'>水重</dt>
           <dd>
             {(m * n * 0.37).toFixed(1)} 吨
           </dd>
