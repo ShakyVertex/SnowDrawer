@@ -208,11 +208,23 @@
 }
 
 .construction-step-description {
-  margin: 0 0 0 40px;
+  margin: 0 0 8px 40px;
   font-size: 14px;
   line-height: 1.6;
   color: var(--text);
   white-space: pre-line;
+}
+
+.construction-step-materials-tools {
+  margin: 0 0 0 40px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.construction-step-label {
+  font-weight: 500;
+  color: var(--text-h);
 }
 
 .workspace {

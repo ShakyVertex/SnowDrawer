@@ -17,6 +17,10 @@ export default function ConstructionProcessPage() {
                   <h2 className="construction-step-title">{step.title}</h2>
                 </div>
                 <p className="construction-step-description">{step.description}</p>
+                <p className="construction-step-materials-tools">
+                  <span className="construction-step-label">物料工具：</span>
+                  {step.materialsTools}
+                </p>
               </li>
             ))}
           </ol>
