@@ -6,10 +6,10 @@ import { cellKey, getRegionCells, getTankDimensions, type Cell } from '../utils/
 import '../App.css'
 
 export default function HomePage() {
-  const [x, setX] = useState(8)
-  const [y, setY] = useState(6)
-  const [u, setU] = useState(0)
-  const [t, setT] = useState(0)
+  const [x, setX] = useState(10)
+  const [y, setY] = useState(10)
+  const [u, setU] = useState(3)
+  const [t, setT] = useState(3)
   const [m, setM] = useState(0)
   const [n, setN] = useState(0)
   const [annotateMode, setAnnotateMode] = useState(false)

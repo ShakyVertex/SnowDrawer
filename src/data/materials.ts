@@ -68,7 +68,7 @@ export const materials: Material[] = [
     name: '广告布',
     imageUrl: 'https://placehold.co/80x80/fef08a/ca8a04?text=AD',
     price: '10-20 元/平方米',
-    remark: '黑胶、黑底灯布、高度1.2 顶部20cm 翻面1.2、下面出血、边上留白边5公分左右打扣眼到白边上、下面还有20公分的位置，包过去用扎带扎起来',
+    remark: '黑胶、黑底灯布、高度1.2\n顶部20cm 翻面1.2、\n下面出血、边上留白边5公分左右打扣眼到白边上、\n下面还有20公分的位置，包过去用扎带扎起来',
   },
   {
     id: 'cable',

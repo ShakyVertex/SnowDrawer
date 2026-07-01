@@ -5,7 +5,7 @@ export function AppHeader() {
     <header className="app-header">
       <div className="app-header-main">
         <Link to="/" className="app-header-brand">
-          <h1>欢雪奇遇物料测算系统</h1>
+          <h1>欢雪奇遇 WEB SUPPORT</h1>
           <p>系统问题联系微信: lkn_cintaiuo</p>
         </Link>
       </div>
