@@ -40,13 +40,20 @@ export function ParameterPanel({
   const deviceRoomTruss200cm = u * 4 + t * 4 + (u + t) * 2
   const horizontal = x + 0.8
   const vertical = y + 0.8
-  const horizontalStructure = Math.floor((horizontal - 0.2) / 1.4)
-  const verticalStructure = Math.floor((vertical - 0.2) / 1.4)
-  const horizontalRemain = Math.floor((horizontal - 0.2) % 1.4 / 0.2)
-  const verticalRemain = Math.floor((vertical - 0.2) % 1.4 / 0.2)
-  const nutBolts = (horizontalStructure + verticalStructure + horizontalRemain + verticalRemain + u + t) * 2 * 8
-  const playgroundTruss120cm = (horizontalStructure + verticalStructure) * 3 * 2 + (horizontalRemain + verticalRemain) * 2 - 4
-  
+
+  const horizontalStructure220cm = Math.floor((horizontal - 0.2) / 2.2)
+  const horizontalRemain220cm = (horizontal - 0.2) % 2.2
+  const horizontalStructure140cm = Math.floor(horizontalRemain220cm / 1.4)
+  const horizontalPlus = Math.floor((horizontalRemain220cm % 1.4) / 0.2)
+
+  const verticalStructure220cm = Math.floor((vertical - 0.2) / 2.2)
+  const verticalRemain220cm = (vertical - 0.2) % 2.2
+  const verticalStructure140cm = Math.floor(verticalRemain220cm / 1.4)
+  const verticalPlus = Math.floor((verticalRemain220cm % 1.4) / 0.2)
+
+  const nutBolts = (horizontalStructure220cm + horizontalStructure140cm + horizontalPlus + verticalStructure220cm + verticalStructure140cm + verticalPlus + u + t) * 2 * 8
+  const playgroundTruss120cm = (horizontalStructure140cm + verticalStructure140cm) * 2 * 2 + (horizontalPlus + verticalPlus) * 2 + (horizontalStructure220cm + verticalStructure220cm) * 2
+  const playgroundTruss200cm = (horizontalStructure220cm + verticalStructure220cm) * 2 * 2
 
   return (
     <aside className="parameter-panel">
@@ -131,13 +138,13 @@ export function ParameterPanel({
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>水平方案</dt>
           <dd>
-            {horizontalStructure} 匚 + {horizontalRemain} 补充柱
+            {horizontalStructure220cm} 长 + {horizontalStructure140cm} 短 + {horizontalPlus} 柱
           </dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>垂直方案</dt>
           <dd>
-            {verticalStructure} 匚 + {verticalRemain} 补充柱
+            {verticalStructure220cm} 长 + {verticalStructure140cm} 短 + {verticalPlus} 柱
           </dd>
         </div>
         <div>
@@ -146,7 +153,7 @@ export function ParameterPanel({
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>桁架（2m）</dt>
-          <dd>{deviceRoomTruss200cm} 根</dd>
+          <dd>{deviceRoomTruss200cm + playgroundTruss200cm} 根</dd>
         </div>
         <div>
           <dt style={{ color: OUTER_FRAME_COLOR }}>螺栓螺母</dt>
