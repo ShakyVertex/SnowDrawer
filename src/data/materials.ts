@@ -9,17 +9,17 @@ export type Material = {
 export const materials: Material[] = [
   {
     id: 'module',
-    name: 'PP蓄水池模块 雨水收集利用系统模块',
+    name: '模块',
     imageUrl: 'https://placehold.co/80x80/e5e7eb/6b7280?text=M',
     price: '? 元/件',
-    remark: '尺寸：100cm × 100cm × 25cm',
+    remark: 'PP蓄水池模块 雨水收集利用系统模块\n尺寸：100cm × 100cm × 25cm',
   },
   {
     id: 'grid',
-    name: '洗车店塑料格珊网',
+    name: '格网',
     imageUrl: 'https://placehold.co/80x80/e5e7eb/6b7280?text=G',
     price: '? 元/件',
-    remark: '尺寸：50cm × 50cm × 3cm',
+    remark: '洗车店塑料格珊网\n尺寸：50cm × 50cm × 3cm',
   },
   {
     id: 'foam-3cm',
